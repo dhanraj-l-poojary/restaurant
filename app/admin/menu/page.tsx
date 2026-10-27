@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 type Item = { id:number; name:string; description:string; price:number; category:string; image_url:string; is_vegetarian:boolean; is_available:boolean };
 const categories = ["Pizza","Indian","Burgers","Desserts","Drinks","Popular"];
 export default function AdminMenuPage() {
@@ -15,7 +15,7 @@ export default function AdminMenuPage() {
     try { const r=await fetch(`/api/admin/menu/${id}`,{method:"PATCH",headers:{"Content-Type":"application/json","x-admin-token":token},body:JSON.stringify(patch)}); const d=await r.json(); if(!r.ok) throw new Error(d.error); setItems(current=>current.map(item=>item.id===id?d.item:item)); setMessage("Menu item updated."); }
     catch(e) { setError(e instanceof Error?e.message:"Unable to update item."); }
   }
-  async function add(event:React.FormEvent<HTMLFormElement>) {
+  async function add(event:FormEvent<HTMLFormElement>) {
     event.preventDefault(); setError(""); setMessage("");
     try { const r=await fetch("/api/admin/menu",{method:"POST",headers:{"Content-Type":"application/json","x-admin-token":token},body:JSON.stringify({...form,price:Number(form.price),is_available:true})}); const d=await r.json(); if(!r.ok) throw new Error(d.error); setItems(current=>[...current,d.item]); setForm({name:"",description:"",price:"",category:"Indian",image_url:"",is_vegetarian:true}); setMessage("Food item added."); }
     catch(e) { setError(e instanceof Error?e.message:"Unable to add item."); }
