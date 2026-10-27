@@ -1,0 +1,17 @@
+export type FoodCategory = "Popular" | "Pizza" | "Indian" | "Burgers" | "Desserts" | "Drinks";
+export type MenuItem = {
+  id: number; name: string; description: string; price: number; image_url: string;
+  category: FoodCategory; is_vegetarian: boolean; is_available: boolean; badge?: string;
+};
+export const demoMenu: MenuItem[] = [
+  { id: 1, name: "Garden Margherita", description: "San Marzano tomato, mozzarella, fresh basil", price: 249, image_url: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=85", category: "Pizza", is_vegetarian: true, is_available: true, badge: "Bestseller" },
+  { id: 2, name: "Smoky Chicken Burger", description: "Chargrilled chicken, house sauce, crisp lettuce", price: 219, image_url: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85", category: "Burgers", is_vegetarian: false, is_available: true, badge: "Popular" },
+  { id: 3, name: "Royal Chicken Biryani", description: "Fragrant basmati, slow-cooked chicken, raita", price: 279, image_url: "https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=900&q=85", category: "Indian", is_vegetarian: false, is_available: true, badge: "Chef's pick" },
+  { id: 4, name: "Paneer Tikka Bowl", description: "Smoky paneer, mint chutney, seasonal salad", price: 229, image_url: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=900&q=85", category: "Indian", is_vegetarian: true, is_available: true },
+  { id: 5, name: "Crispy Masala Dosa", description: "Golden dosa, potato masala, coconut chutney", price: 119, image_url: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=900&q=85", category: "Indian", is_vegetarian: true, is_available: true },
+  { id: 6, name: "Truffle Mushroom Pizza", description: "Roasted mushrooms, mozzarella, garlic cream", price: 299, image_url: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=900&q=85", category: "Pizza", is_vegetarian: true, is_available: true, badge: "New" },
+  { id: 7, name: "Double Smash Burger", description: "Two smashed patties, cheddar, pickles, brioche", price: 269, image_url: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=85", category: "Burgers", is_vegetarian: false, is_available: true },
+  { id: 8, name: "Chocolate Lava Cake", description: "Warm chocolate cake with a molten centre", price: 139, image_url: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=85", category: "Desserts", is_vegetarian: true, is_available: true },
+  { id: 9, name: "Mango Cheesecake", description: "Creamy cheesecake, mango compote, biscuit base", price: 159, image_url: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=900&q=85", category: "Desserts", is_vegetarian: true, is_available: false },
+  { id: 10, name: "Fresh Lime Cooler", description: "Fresh lime, mint, sparkling soda", price: 79, image_url: "https://images.unsplash.com/photo-1513558161293-cdaf765edfd7?auto=format&fit=crop&w=900&q=85", category: "Drinks", is_vegetarian: true, is_available: true }
+];
