@@ -26,6 +26,14 @@ Environment variables:
 ## Deploy
 Import this repository in Vercel, add the environment variables, and deploy. Run the SQL migration in Supabase before using persistent ordering. Without Supabase credentials, the UI uses demo menu data and checkout returns a demo order ID; demo orders are not persisted.
 
+## Included in this starter
+- Responsive home page and menu cards with food photos, INR prices, category filters, and search.
+- Cart, quantity updates, delivery fee calculation, checkout form, and order creation.
+- Supabase schema for menu, orders, order items, payments, reviews, and order status history.
+- Order tracking page at `/orders/[id]` and admin order dashboard at `/admin`.
+- Menu/availability management at `/admin/menu`; admin APIs require `ADMIN_ACCESS_TOKEN`.
+- Live menu changes via Supabase Realtime (enable replication for `menu_items`).
+
 ## Notes
 - Prices are validated server-side against the database when Supabase is configured.
 - Payment gateway integration and customer login/registration are not enabled yet. The online payment choice is a placeholder; do not treat demo checkout as a real payment.
