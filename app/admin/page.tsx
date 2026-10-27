@@ -18,7 +18,7 @@ export default function AdminPage() {
   }
   return <main className="container" style={{padding:"30px 0 70px"}}>
     <a className="logo" href="/"><span className="logo-mark">f.</span> foodiehub.</a>
-    <div className="section-head" style={{marginTop:35}}><div><span className="kicker">Restaurant operations</span><h1 style={{fontSize:38,margin:"8px 0"}}>Order dashboard</h1><p>Review incoming orders and keep customers updated.</p></div><a className="btn btn-light" href="/">← Customer site</a></div>
+    <div className="section-head" style={{marginTop:35}}><div><span className="kicker">Restaurant operations</span><h1 style={{fontSize:38,margin:"8px 0"}}>Order dashboard</h1><p>Review incoming orders and keep customers updated.</p></div><div style={{display:"flex",gap:8,flexWrap:"wrap"}}><a className="btn btn-light" href="/admin/menu">Manage menu</a><a className="btn btn-light" href="/">← Customer site</a></div></div>
     <div className="notice error">Starter admin access uses a server token. For production, replace this with Supabase Auth and trusted admin roles.</div>
     <div style={{display:"flex",gap:10,marginBottom:24,flexWrap:"wrap"}}><input className="search" type="password" value={token} onChange={(e)=>setToken(e.target.value)} placeholder="ADMIN_ACCESS_TOKEN" aria-label="Admin access token"/><button className="btn" disabled={!token||loading} onClick={load}>{loading?"Loading…":"Load orders"}</button></div>
     {error && <div className="notice error">{error}</div>}
