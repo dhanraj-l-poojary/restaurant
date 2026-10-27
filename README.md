@@ -1,6 +1,6 @@
 # FoodieHub — Restaurant Ordering Website
 
-A responsive restaurant ordering starter built with Next.js, TypeScript, Tailwind CSS, and Supabase. It includes a food menu, search and category filters, cart, checkout, order creation, order tracking UI, and an admin dashboard starter.
+A responsive restaurant ordering starter built with Next.js, TypeScript, Tailwind CSS, and Supabase. It includes a responsive food menu with search and category filters, cart, checkout, order creation, order tracking (refreshes every 10 seconds), live menu availability updates, and admin pages for order status and menu availability/price management.
 
 ## Stack
 - Next.js App Router + TypeScript
@@ -15,7 +15,7 @@ A responsive restaurant ordering starter built with Next.js, TypeScript, Tailwin
 4. Run `npm run dev` and open `http://localhost:3000`.
 
 ## Supabase setup
-Run `supabase/migrations/202610270001_initial_schema.sql` in the Supabase SQL Editor. Create a Storage bucket named `food-images` and configure upload policies for authorized admins before enabling image uploads.
+Run `supabase/migrations/202610270001_initial_schema.sql` in the Supabase SQL Editor. Enable Realtime for the `menu_items` table in Supabase Database Replication so availability changes reach open menu pages. Create a Storage bucket named `food-images` and configure upload policies for authorized admins before enabling image uploads.
 
 Environment variables:
 - `NEXT_PUBLIC_SUPABASE_URL`
@@ -28,5 +28,5 @@ Import this repository in Vercel, add the environment variables, and deploy. Run
 
 ## Notes
 - Prices are validated server-side against the database when Supabase is configured.
-- Payment gateway integration is not enabled yet. Do not treat demo checkout as a real payment.
+- Payment gateway integration and customer login/registration are not enabled yet. The online payment choice is a placeholder; do not treat demo checkout as a real payment.
 - For production, add Supabase Auth for customers/staff, verify admin roles through trusted claims, and integrate a payment provider with signed webhook verification.
