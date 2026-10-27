@@ -2,6 +2,7 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import type { FoodCategory, MenuItem } from "@/lib/menu";
 import { demoMenu } from "@/lib/menu";
+import { getSupabaseBrowser } from "@/lib/supabase-browser";
 type CartItem = { item: MenuItem; quantity: number };
 type OrderResult = { orderId: string; total: number; status: string; demo?: boolean; message: string };
 const categories: ("All" | FoodCategory)[] = ["All", "Popular", "Pizza", "Indian", "Burgers", "Desserts", "Drinks"];
@@ -25,6 +26,23 @@ export default function HomePage() {
     try { const saved = localStorage.getItem("foodiehub-cart"); if (saved) setCart(JSON.parse(saved) as CartItem[]); } catch { /* ignore invalid local cart */ }
   }, []);
   useEffect(() => { localStorage.setItem("foodiehub-cart", JSON.stringify(cart)); }, [cart]);
+  useEffect(() => {
+    const client = getSupabaseBrowser();
+    if (!client) return;
+    const channel = client.channel("foodiehub-menu-live").on("postgres_changes", { event: "*", schema: "public", table: "menu_items" }, (payload) => {
+      if (payload.eventType === "DELETE") {
+        const oldRow = payload.old as { id?: number };
+        setMenu((current) => current.filter((item) => item.id !== Number(oldRow.id)));
+        return;
+      }
+      const row = payload.new as MenuItem;
+      setMenu((current) => current.some((item) => item.id === Number(row.id))
+        ? current.map((item) => item.id === Number(row.id) ? { ...row, id: Number(row.id), price: Number(row.price) } : item)
+        : [...current, { ...row, id: Number(row.id), price: Number(row.price) }]);
+    }).subscribe();
+    return () => { void client.removeChannel(channel); };
+  }, []);
+
 
   const filteredMenu = useMemo(() => menu.filter((item) => {
     const matchesCategory = category === "All" || (category === "Popular" ? Boolean(item.badge) : item.category === category);
