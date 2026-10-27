@@ -58,8 +58,8 @@ alter table public.payments enable row level security;
 alter table public.reviews enable row level security;
 drop policy if exists "Public can read active categories" on public.categories;
 create policy "Public can read active categories" on public.categories for select to anon, authenticated using (is_active = true);
-drop policy if exists "Public can read available menu items" on public.menu_items;
-create policy "Public can read available menu items" on public.menu_items for select to anon, authenticated using (true);
+drop policy if exists "Public can read menu items" on public.menu_items;
+create policy "Public can read menu items" on public.menu_items for select to anon, authenticated using (true);
 drop policy if exists "Public can read published reviews" on public.reviews;
 create policy "Public can read published reviews" on public.reviews for select to anon, authenticated using (is_published = true);
 -- No browser policies for orders, order_items, history, or payments. Server APIs use the service-role key.
