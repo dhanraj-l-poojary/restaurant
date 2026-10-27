@@ -14,9 +14,12 @@ export async function POST(request: NextRequest) {
   const supabase = getSupabaseAdmin();
   if (!supabase) {
     const byId = new Map(demoMenu.map((item) => [item.id, item]));
-    const selected = items.map((item) => ({ ...byId.get(item.id), quantity: item.quantity }));
-    if (selected.some((item) => !item.id || !item.is_available)) return NextResponse.json({ error: "One or more items are unavailable." }, { status: 409 });
-    const subtotal = selected.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const selected = items.map((line) => {
+      const menuItem = byId.get(line.id);
+      return menuItem ? { item: menuItem, quantity: line.quantity } : null;
+    });
+    if (selected.some((line) => !line || !line.item.is_available)) return NextResponse.json({ error: "One or more items are unavailable." }, { status: 409 });
+    const subtotal = selected.reduce((sum, line) => sum + (line ? line.item.price * line.quantity : 0), 0);
     return NextResponse.json({ demo: true, orderId: `DEMO-${Date.now().toString().slice(-8)}`, status: "confirmed", total: subtotal + (subtotal >= 499 ? 0 : 30), message: "Demo order created. Configure Supabase to persist real orders." }, { status: 201 });
   }
 
